@@ -1,5 +1,8 @@
 package by.it_academy.jd2.Mk_jd2_111_25;
 
+/**
+ * Class which provides strings describing number or date
+ */
 public class Namer {
 
     private static final String[] zeroToNineteen = {
@@ -32,6 +35,11 @@ public class Namer {
             "десятая", "десятые" , "десятых"
     };
 
+    /**
+     * @param number number to be named
+     * @param fem true, if number used to count things in  feminine form
+     * @return String of names for each three digit parts of number with rank words and "minus" word in front, if applicable
+     */
     public static String convertIntToString(int number, boolean fem){
         StringBuilder builder = new StringBuilder();
         if (number==0) return "ноль";
@@ -46,6 +54,12 @@ public class Namer {
         return builder.toString().trim();
     }
 
+    /**
+     * @param number three digits to be named
+     * @param rankName rank of this three digit part
+     * @param fem true, if number used to count things in feminine form
+     * @param builder StringBuilder, for which append will be invoked
+     */
     private static void convertThree(int number, String[] rankName, boolean fem, StringBuilder builder){
         if (number == 0) {
             return;
@@ -54,6 +68,11 @@ public class Namer {
         pickForm(number, rankName, builder);
     }
 
+    /**
+     * @param number three digits to be named
+     * @param fem true, if number used to count things in feminine form
+     * @param builder StringBuilder, for which append will be invoked
+     */
     private static void convertThree(int number, boolean fem, StringBuilder builder){
         int twoLast = number%100;
         if (number == 0) return;
@@ -78,6 +97,12 @@ public class Namer {
         }
     }
 
+    /**
+     *
+     * @param number tree digit part of a number, determines word endings
+     * @param rankName rank of this three digit part
+     * @param builder StringBuilder, for which append will be invoked
+     */
     private static void pickForm(int number, String[] rankName, StringBuilder builder){
         int form;
         int lastTwo = number % 100;
@@ -94,6 +119,11 @@ public class Namer {
         builder.append(" ").append(rankName[form]);
     }
 
+    /**
+     *
+     * @param d fractional number to be named
+     * @return String containing the name of the integer part, the word "whole parts" and the name of the fractional part
+     */
     public static String convertDoubleToString(double d ){
         StringBuilder builder = new StringBuilder();
         builder.append(convertIntToString((int) (d), true)).append(" ");
@@ -109,6 +139,11 @@ public class Namer {
         return builder.toString().trim();
     }
 
+    /**
+     *
+     * @param d fractional number to be named
+     * @param builder StringBuilder, for which append will be invoked
+     */
     private static void convertFractionalPart(double d, StringBuilder builder){
         int number = (int) Math.round((d-(int)d)*100);
         int hundred = number%10;
@@ -140,7 +175,21 @@ public class Namer {
         }
     }
 
+    /**
+     *
+     * @param days number of days to divide by 7
+     * @return String with number of weeks and the word "weeks" with the required ending
+     */
     public static String stringDaysToWeek(int days){
-        return days/7+" недели";
+        int weeks = days/7;
+        if (weeks%10==1) {
+            return weeks + " неделя";
+        } else if (weeks%10==0) {
+            return weeks+" недель";
+        } else if (weeks%10<5) {
+            return weeks+" недели";
+        }else {
+            return weeks+" недель";
+        }
     }
 }

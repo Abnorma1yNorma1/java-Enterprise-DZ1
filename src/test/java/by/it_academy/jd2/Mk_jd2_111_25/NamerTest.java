@@ -6,14 +6,14 @@ import org.junit.jupiter.api.Test;
 public class NamerTest {
 
     @Test
-    public void convertIntToStringTest(){
+    public void convertIntToStringShouldCombineEverythingTogether(){
 
-        Assertions.assertEquals("двадцать одна тысяча", Namer.convertIntToString(21_000, false));Assertions.assertEquals("двадцать одна тысяча", Namer.convertIntToString(21_000, false));Assertions.assertEquals("двадцать одна тысяча", Namer.convertIntToString(21_000, false));Assertions.assertEquals("двадцать одна тысяча", Namer.convertIntToString(21_000, false));Assertions.assertEquals("двадцать одна тысяча", Namer.convertIntToString(21_000, false));Assertions.assertEquals("двадцать одна тысяча", Namer.convertIntToString(21_000, false));
+        Assertions.assertEquals("двадцать одна тысяча", Namer.convertIntToString(21_000, false));
         Assertions.assertEquals("две", Namer.convertIntToString(2, true));
     }
 
     @Test
-    public void convertDoubleToStringTest(){
+    public void convertDoubleToStringShouldCombineEverythingTogether(){
         Assertions.assertEquals("одна целая две десятые", Namer.convertDoubleToString(1.2));
     }
 }

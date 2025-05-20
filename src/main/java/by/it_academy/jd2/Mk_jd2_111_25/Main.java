@@ -10,7 +10,7 @@ public class Main {
         for (double number: testCases2){
             System.out.println(Namer.convertDoubleToString(number));
         }
-        int[] testCases3 = {14, 15, 2};
+        int[] testCases3 = {14, 253, 2};
         for (int days: testCases3){
             System.out.println(Namer.stringDaysToWeek(days));
         }
