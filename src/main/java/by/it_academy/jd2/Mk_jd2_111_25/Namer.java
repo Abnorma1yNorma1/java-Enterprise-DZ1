@@ -60,7 +60,7 @@ public class Namer {
      * @param fem true, if number used to count things in feminine form
      * @param builder StringBuilder, for which append will be invoked
      */
-    private static void convertThree(int number, String[] rankName, boolean fem, StringBuilder builder){
+    protected static void convertThree(int number, String[] rankName, boolean fem, StringBuilder builder){
         if (number == 0) {
             return;
         }
@@ -73,7 +73,7 @@ public class Namer {
      * @param fem true, if number used to count things in feminine form
      * @param builder StringBuilder, for which append will be invoked
      */
-    private static void convertThree(int number, boolean fem, StringBuilder builder){
+    protected static void convertThree(int number, boolean fem, StringBuilder builder){
         int twoLast = number%100;
         if (number == 0) return;
         builder.append(hundreds[number/100]).append(" ");
@@ -103,7 +103,7 @@ public class Namer {
      * @param rankName rank of this three digit part
      * @param builder StringBuilder, for which append will be invoked
      */
-    private static void pickForm(int number, String[] rankName, StringBuilder builder){
+    protected static void pickForm(int number, String[] rankName, StringBuilder builder){
         int form;
         int lastTwo = number % 100;
         int lastDigit = number % 10;
@@ -144,7 +144,7 @@ public class Namer {
      * @param d fractional number to be named
      * @param builder StringBuilder, for which append will be invoked
      */
-    private static void convertFractionalPart(double d, StringBuilder builder){
+    protected static void convertFractionalPart(double d, StringBuilder builder){
         int number = (int) Math.round((d-(int)d)*100);
         int hundred = number%10;
         int ten = number/10;
