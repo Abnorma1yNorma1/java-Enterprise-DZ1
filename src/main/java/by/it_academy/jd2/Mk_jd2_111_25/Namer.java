@@ -1,7 +1,5 @@
 package by.it_academy.jd2.Mk_jd2_111_25;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 /**
  * Class which provides strings describing number or date
