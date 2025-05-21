@@ -44,12 +44,12 @@ public class Namer {
         StringBuilder builder = new StringBuilder();
         if (number==0) return "ноль";
         if (number<0){
-            builder.append("минус ");
+            builder.append("минус");
         }
         convertThree(Math.abs(number/1_000_000), millions, false, builder);
-        builder.append(" ");
+//        builder.append(" ");
         convertThree(Math.abs(number/1_000%1_000), thousands, true, builder);
-        builder.append(" ");
+//        builder.append(" ");
         convertThree(Math.abs(number%1_000), fem, builder);
         return builder.toString().trim();
     }
@@ -88,11 +88,11 @@ public class Namer {
         } else {
             builder.append(tens[twoLast/10]).append(" ");
             if (fem && twoLast%10==1 ){
-                builder.append("одна");
+                builder.append("одна").append(" ");
             } else if (fem && twoLast%10==2) {
-                builder.append("две");
+                builder.append("две").append(" ");
             } else {
-                builder.append(zeroToNineteen[twoLast%10]);
+                builder.append(zeroToNineteen[twoLast%10]).append(" ");
             }
         }
     }
@@ -116,7 +116,7 @@ public class Namer {
         } else {
             form = 2;
         }
-        builder.append(" ").append(rankName[form]);
+        builder.append(rankName[form]).append(" ");
     }
 
     /**
