@@ -214,11 +214,11 @@ public class Namer {
      * @param shortFormat defines if resulting format going to be written "HH:mm:ss;SSS" or "H hours m minutes s seconds SS milliseconds"
      * @return time as on a digital clock or in text
      */
-    public static String MillisecondsToTimeString( long milliseconds, boolean shortFormat){
+    public static String millisecondsToTimeString(long milliseconds, boolean shortFormat){
         short millis = (short) (milliseconds%1000);
         byte sek = (byte) (milliseconds/1000%60);
         byte min = (byte) (milliseconds/1000/60%60);
-        long hour = milliseconds/1000/60/60%60;
+        long hour = milliseconds/1000/60/60;
         StringBuilder builder = new StringBuilder();
         if (shortFormat){
             writeInShortFormat(hour, min, sek, millis, builder);
@@ -228,6 +228,9 @@ public class Namer {
         return builder.toString().trim();
     }
 
+    /**
+     * Appends StringBuilder with hours:minutes:seconds:milliseconds or "99:99:99:999" if hours>99
+     */
     protected static void writeInShortFormat(long hour, byte min, byte sek, short millis, StringBuilder builder){
         if (hour>99){
             builder.append("99:99:99:999");
@@ -242,6 +245,9 @@ public class Namer {
         }
     }
 
+    /**
+     * Appends StringBuilder with "H hours m minutes s seconds SS milliseconds"
+     */
     protected static void writeInLongFormat(long hour, byte min, byte sek, short millis, StringBuilder builder){
         builder.append(hour).append(" ");
         pickForm((int) (hour%100), hours, builder);

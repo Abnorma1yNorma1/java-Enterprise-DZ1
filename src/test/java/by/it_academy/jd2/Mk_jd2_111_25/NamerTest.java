@@ -145,6 +145,13 @@ public class NamerTest {
     }
 
     @Test
+    public void convertFractionalPart_ShouldProvideMoreThenLessThenTwentyHundredths(){
+        StringBuilder builder = new StringBuilder();
+        Namer.convertFractionalPart(0.14, builder);
+        Assertions.assertEquals("четырнадцать сотых", builder.toString());
+    }
+
+    @Test
     public void stringDaysToWeek_ShouldProvideWeeks(){
         Assertions.assertEquals("2 недели", Namer.stringDaysToWeek(15));
     }
@@ -162,5 +169,20 @@ public class NamerTest {
     @Test
     public void stringDaysToWeek_ShouldProvideBigAmountOfWeeks(){
         Assertions.assertEquals("95 недель", Namer.stringDaysToWeek(7*95));
+    }
+
+    @Test
+    public void millisecondsToTimeString_ShouldProvideTimeInShortFormat(){
+        Assertions.assertEquals("01:00:54:885", Namer.millisecondsToTimeString(3654885L, true));
+    }
+
+    @Test
+    public void millisecondsToTimeString_ShouldProvideDefaultForOutOfTimeBoundsInShortFormat(){
+        Assertions.assertEquals("99:99:99:999", Namer.millisecondsToTimeString(Long.MAX_VALUE, true));
+    }
+
+    @Test
+    public void millisecondsToTimeString_ShouldProvideTimeInLongFormat(){
+        Assertions.assertEquals("1 час 0 минут 54 секунды 885 миллисекунд", Namer.millisecondsToTimeString(3654885L, false));
     }
 }
