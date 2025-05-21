@@ -14,6 +14,12 @@ public class Main {
         for (int days: testCases3){
             System.out.println(Namer.stringDaysToWeek(days));
         }
+        long[] testCases4 = {14, 253, 2};
+        for (long millis: testCases4){
+            System.out.println(Namer.MillisecondsToTimeString(millis, true));
+            System.out.println(Namer.MillisecondsToTimeString(millis, false));
+        }
+
 
     }
 }

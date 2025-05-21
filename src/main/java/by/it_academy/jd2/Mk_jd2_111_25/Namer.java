@@ -1,5 +1,8 @@
 package by.it_academy.jd2.Mk_jd2_111_25;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 /**
  * Class which provides strings describing number or date
  */
@@ -35,6 +38,22 @@ public class Namer {
             "десятая", "десятые" , "десятых"
     };
 
+    private static final String[] hours = {
+            "час", "часа" , "часов"
+    };
+
+    private static final String[] minutes = {
+            "минута", "минуты", "минут"
+    };
+
+    private static final String[] seconds = {
+            "секунда", "секунды" , "секунд"
+    };
+
+    private static final String[] milliseconds = {
+            "миллисекунда", "миллисекунды" , "миллисекунд"
+    };
+
     /**
      * @param number number to be named
      * @param fem true, if number used to count things in  feminine form
@@ -44,12 +63,10 @@ public class Namer {
         StringBuilder builder = new StringBuilder();
         if (number==0) return "ноль";
         if (number<0){
-            builder.append("минус");
+            builder.append("минус ");
         }
         convertThree(Math.abs(number/1_000_000), millions, false, builder);
-//        builder.append(" ");
         convertThree(Math.abs(number/1_000%1_000), thousands, true, builder);
-//        builder.append(" ");
         convertThree(Math.abs(number%1_000), fem, builder);
         return builder.toString().trim();
     }
@@ -74,9 +91,9 @@ public class Namer {
      * @param builder StringBuilder, for which append will be invoked
      */
     protected static void convertThree(int number, boolean fem, StringBuilder builder){
-        int twoLast = number%100;
         if (number == 0) return;
-        builder.append(hundreds[number/100]).append(" ");
+        int twoLast = number%100;
+        if (number/100!=0) builder.append(hundreds[number/100]).append(" ");
         if (twoLast<20) {
             if (fem && twoLast%10==1){
                 builder.append("одна").append(" ");
@@ -107,7 +124,7 @@ public class Namer {
         int form;
         int lastTwo = number % 100;
         int lastDigit = number % 10;
-        if ((lastTwo>=11 && lastTwo<=14) || (number!=0 && lastDigit==0)){
+        if ((lastTwo>=11 && lastTwo<=14) || (number!=0 && lastDigit==0) || number==0){
             form = 2;
         } else if (lastDigit == 1) {
             form = 0;
@@ -190,6 +207,69 @@ public class Namer {
             return weeks+" недели";
         }else {
             return weeks+" недель";
+        }
+    }
+
+    /**
+     *
+     * @param milliseconds will be turned to time format
+     * @param shortFormat defines if resulting format going to be written "HH:mm:ss;SSS" or "H hours m minutes s seconds SS milliseconds"
+     * @return time as on a digital clock or in text
+     */
+    public static String MillisecondsToTimeString( long milliseconds, boolean shortFormat){
+        short millis = (short) (milliseconds%1000);
+        byte sek = (byte) (milliseconds/1000%60);
+        byte min = (byte) (milliseconds/1000/60%60);
+        long hour = milliseconds/1000/60/60%60;
+        StringBuilder builder = new StringBuilder();
+        if (shortFormat){
+            writeInShortFormat(hour, min, sek, millis, builder);
+        } else {
+            writeInLongFormat(hour, min, sek, millis, builder);
+        }
+        return builder.toString().trim();
+    }
+
+    protected static void writeInShortFormat(long hour, byte min, byte sek, short millis, StringBuilder builder){
+        if (hour>99){
+            builder.append("99:99:99:999");
+        } else {
+            writeWithZeros((short) (hour%100), 2, builder);
+            builder.append(":");
+            writeWithZeros(min, 2, builder);
+            builder.append(":");
+            writeWithZeros(sek, 2, builder);
+            builder.append(":");
+            writeWithZeros(millis, 3, builder);
+        }
+    }
+
+    protected static void writeInLongFormat(long hour, byte min, byte sek, short millis, StringBuilder builder){
+        builder.append(hour).append(" ");
+        pickForm((int) (hour%100), hours, builder);
+        builder.append(min).append(" ");
+        pickForm(min%100, minutes, builder);
+        builder.append(sek).append(" ");
+        pickForm(sek%100, seconds, builder);
+        builder.append(millis).append(" ");
+        pickForm(millis%100, milliseconds, builder);
+    }
+
+    /**
+     *
+     * @param number to be written
+     * @param digits amount of digits up to which string shall be filled (max 3)
+     * @param builder StringBuilder, for which append will be invoked to write number
+     */
+    protected static void writeWithZeros (short number, int digits, StringBuilder builder){
+        int current = number;
+        int [] arr = new int[digits];
+        for (int i = arr.length-1; i>=0; i--){
+            arr[i]= (current%10);
+            current=current/10;
+        }
+        for (int digit: arr){
+            builder.append(digit);
         }
     }
 }

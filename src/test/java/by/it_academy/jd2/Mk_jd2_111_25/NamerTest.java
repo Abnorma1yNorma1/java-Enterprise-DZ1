@@ -26,7 +26,7 @@ public class NamerTest {
     public void convertThree_ShouldNameThreeDigits(){
         StringBuilder builder = new StringBuilder();
         Namer.convertThree(21, false, builder);
-        Assertions.assertEquals(" двадцать один ", builder.toString());
+        Assertions.assertEquals("двадцать один ", builder.toString());
     }
 
     @Test
